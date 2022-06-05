@@ -1,0 +1,13 @@
+# Copyright 2022 Billy Olsen
+# See LICENSE file for licensing details.
+
+# For a complete list of supported options, see:
+# https://juju.is/docs/sdk/metadata-reference
+name: discoveryserver
+display-name: |
+  etcd.io discovery server
+description: |
+  Deploys an all-in-one etcd.io discovery service
+summary: |
+  Deploys an all-in-one etcd.io discovery service
+
