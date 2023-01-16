@@ -42,8 +42,8 @@ class CharmDiscoveryserverCharm(CharmBase):
         """
         try:
             discovery_server = snap.add(
-                snap_names=['discoveryserver'],
-                channel=['latest/edge'],
+                snap_names='discoveryserver',
+                channel='latest/edge',
             )
             logger.debug('Successfully install discoveryserver')
         except snap.SnapError as e:
