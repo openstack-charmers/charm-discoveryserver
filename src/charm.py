@@ -58,6 +58,7 @@ class CharmDiscoveryserverCharm(CharmBase):
 
         # Learn more about statuses in the SDK docs:
         # https://juju.is/docs/sdk/constructs#heading--statuses
+        self.unit.open_port('tcp', 8087)
         self.unit.status = ActiveStatus()
 
 
