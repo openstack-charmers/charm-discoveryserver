@@ -13,6 +13,7 @@ develop a new k8s charm using the Operator Framework:
 """
 
 import logging
+import subprocess
 
 from ops.charm import CharmBase
 from ops.framework import StoredState
@@ -45,12 +46,19 @@ class CharmDiscoveryserverCharm(CharmBase):
                 snap_names='discoveryserver',
                 channel='latest/edge',
             )
-            logger.debug('Successfully install discoveryserver')
+            logger.info('Successfully install discoveryserver')
+            ingress_address = subprocess.check_output(['unit-get',
+                                                       'public-address'])
+            ingress_address = ingress_address.decode('utf-8').strip()
+            logger.info('Setting discovery.host=%s', ingress_address)
+            discovery_server.set({'discovery.host': ingress_address})
         except snap.SnapError as e:
             logger.exception('Error occurred installing discoveryserver snap.')
-            raise
+            raise e
+
         # Learn more about statuses in the SDK docs:
         # https://juju.is/docs/sdk/constructs#heading--statuses
+        self.unit.open_port('tcp', 8087)
         self.unit.status = ActiveStatus()
 
 
